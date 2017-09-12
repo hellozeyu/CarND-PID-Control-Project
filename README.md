@@ -1,7 +1,15 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
 
----
+## Writeup
+I followed the video of PID project Q&A session and give the main function three input arguments to represent the initial value of Kp, Ki and Kd. This helps me save a bunch of time tweaking the parameters by skipping the build process.
+
+I started with [0.5,0,0.5] for PID gains, as suggested in the video, and observed the resulting behavior. Found that the vehicle oscillated too much when making the first turn. Since the P component controls how strong in proportion to the CTE we control the steering of our vehicle so I changed it to 0.1 but it didn't help that much. Realizing that the behavior of a P controller may never be good, I decided to manipulate the D gain and set this to 1.5 to see if it would improve things. The D component does a good job stopping strong oscillations by making the steering dependent also on the temporal derivative of the CTE. It helps the car successfully pass the first turn. However, the car started oscillating after the first turn and it made the second and third turn very dangerous.
+
+Adding an I term makes the steering proportional to the sum of all CTEs. This helps to adjust to a bias our vehicle might have in regard to steering so I changed it a very small number since I believe the effect of bias is quite minor because the car drives very smooth at the beginning.
+
+I finally pick [0.09 0.00001 1.2] as the parameters after tweaking them for some time. I know this is not perfect but I will try implementing Twiddle on the next commit.
+
 
 ## Dependencies
 
@@ -19,7 +27,7 @@ Self-Driving Car Engineer Nanodegree Program
   * Run either `./install-mac.sh` or `./install-ubuntu.sh`.
   * If you install from source, checkout to commit `e94b6e1`, i.e.
     ```
-    git clone https://github.com/uWebSockets/uWebSockets 
+    git clone https://github.com/uWebSockets/uWebSockets
     cd uWebSockets
     git checkout e94b6e1
     ```
@@ -33,7 +41,7 @@ There's an experimental patch for windows in this [PR](https://github.com/udacit
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./pid`. 
+4. Run it: `./pid`.
 
 ## Editor Settings
 
@@ -93,4 +101,3 @@ still be compilable with cmake and make./
 
 ## How to write a README
 A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
