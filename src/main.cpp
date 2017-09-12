@@ -28,15 +28,19 @@ std::string hasData(std::string s) {
   return "";
 }
 
-int main(int argc, char *argv[])
+int main()
 {
   uWS::Hub h;
 
   PID pid;
   // TODO: Initialize the pid variable.
-  double init_Kp = atof(argv[1]);
-  double init_Ki = atof(argv[2]);
-  double init_Kd = atof(argv[3]);
+//  double init_Kp = atof(argv[1]);
+//  double init_Ki = atof(argv[2]);
+//  double init_Kd = atof(argv[3]);
+    double init_Kp = 0.09;
+    double init_Ki = 0.00001;
+    double init_Kd = 1.2;
+
   pid.Init(init_Kp, init_Ki, init_Kd);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
